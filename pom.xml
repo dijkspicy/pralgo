@@ -7,8 +7,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>oj-huawei</module>
-        <module>oj-leetcode</module>
+        <module>huawei</module>
+        <module>leetcode</module>
+        <module>poj</module>
     </modules>
 
     <properties>
