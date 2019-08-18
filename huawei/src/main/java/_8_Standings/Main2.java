@@ -1,5 +1,7 @@
 package _8_Standings;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -29,22 +31,34 @@ public class Main2 {
         while (scanner.hasNextInt()) {
             int line = scanner.nextInt();
             Object out = main0(line);
-            System.out.println(out);
+            if (out != null) {
+                System.out.println(out);
+            }
         }
     }
 
     private static String main0(int line) {
+        if (line == 1) {
+            return "1 1";
+        }
+
         int middle = line % 2 == 0
             ? line / 2
             : line / 2 + 1;
-        int count = 0;
-        StringBuilder out = new StringBuilder();
-        for (int i = 1; i <= middle; i++) {
+        int count = 2;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 2; i <= middle; i++) {
             if (line % i == 0) {
                 count++;
-                out.append(" ").append(i);
+                list.add(i);
             }
         }
-        return Integer.toString(count) + out;
+        System.out.print(count);
+        System.out.print(" " + 1);
+        for (Integer integer : list) {
+            System.out.print(" " + integer);
+        }
+        System.out.println(" " + line);
+        return null;
     }
 }
