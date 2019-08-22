@@ -10,6 +10,7 @@
         <module>huawei</module>
         <module>leetcode</module>
         <module>poj</module>
+        <module>java-demo</module>
     </modules>
 
     <properties>
@@ -23,4 +24,14 @@
         <tag>HEAD</tag>
     </scm>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
