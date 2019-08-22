@@ -30,33 +30,27 @@ public class Solution1 {
             return;
         }
 
-        int redNums = 0;
-        int whiteNums = 0;
-        int blueNums = 0;
-        for (int num : nums) {
-            switch (num) {
-                case 0:
-                    redNums++;
-                    break;
-                case 1:
-                    whiteNums++;
-                    break;
-                case 2:
-                    blueNums++;
-                    break;
+        int redIndex = 0;
+        int blueIndex = nums.length - 1;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            if (num == 0 && redIndex < i) {
+                swap(nums, redIndex, i);
+                redIndex++;
+            } else if (num == 2 && blueIndex > i) {
+                swap(nums, blueIndex, i);
+                blueIndex--;
             }
         }
+    }
 
-        for (int i = 0; i < redNums; i++) {
-            nums[i] = 0;
-        }
-        int redAndWhite = whiteNums + redNums;
-        for (int i = redNums; i < redAndWhite; i++) {
-            nums[i] = 1;
-        }
-        int total = nums.length;
-        for (int i = redAndWhite; i < total; i++) {
-            nums[i] = 2;
-        }
+    private void swap(int[] nums, int j, int i) {
+        int a = nums[j];
+        int b = nums[i];
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
+        nums[j] = a;
+        nums[i] = b;
     }
 }

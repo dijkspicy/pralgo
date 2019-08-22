@@ -4,12 +4,14 @@ import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * auto generated
  *
  * @since 2019-08-22
  */
-public class SolutionTest {
+public class Solution1Test {
     @Test
     public void test_hashcode_conflict() {
         test(new int[] {
@@ -103,7 +105,7 @@ public class SolutionTest {
     }
 
     private void test(int[] nums, int target, int[] expecteds) {
-        int[] actuals = new Solution().twoSum(nums, target);
+        int[] actuals = new Solution1().twoSum(nums, target);
         assertArrayEquals(expecteds, actuals);
     }
 }
