@@ -5,7 +5,7 @@
 package _992_K个不同整数的子数组;
 
 /**
- * auto generated
+ * 超时
  *
  * @since 2019-08-24
  */
@@ -13,28 +13,17 @@ public class Solution1 {
     public int subarraysWithKDistinct(int[] A, int K) {
         int count = 0;
         for (int start = 0; start < A.length - K + 1; start++) {
-            int[] sets = new int[65536];
-            int currentCount = 0;
-            for (int end = start + K - 1; end < A.length; end++) {
-                if (currentCount != 0) {
-                    int hash = A[end];
-                    if (sets[hash] == 0) {
-                        currentCount++;
-                    }
-                    sets[hash] = A[end];
-                } else {
-                    for (int i = start; i <= end; i++) {
-                        int hash = A[i];
-                        if (sets[hash] == 0) {
-                            currentCount++;
-                        }
-                        sets[hash] = A[i];
-                    }
-                }
-                if (currentCount == K) {
+            Window window = new Window();
+            int end = start + K - 1;
+            for (int i = start; i <= end; i++) {
+                window.add(A[i]);
+            }
+            for (; end < A.length; end++) {
+                window.add(A[end]);
+                if (window.getDistinctCount() == K) {
                     count++;
                 }
-                if (currentCount > K) {
+                if (window.getDistinctCount() > K) {
                     break;
                 }
             }
@@ -42,4 +31,28 @@ public class Solution1 {
         return count;
     }
 
+    private static class Window {
+        private final int[] counter = new int[65536];
+        private int distinctCount = 0;
+
+        void add(int value) {
+            this.counter[value]++;
+            if (this.counter[value] == 1) {
+                this.distinctCount++;
+            }
+        }
+
+        void remove(int value) {
+            if (this.counter[value] > 0) {
+                this.counter[value]--;
+            }
+            if (this.counter[value] == 0) {
+                this.distinctCount--;
+            }
+        }
+
+        int getDistinctCount() {
+            return this.distinctCount;
+        }
+    }
 }
