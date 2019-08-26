@@ -11,5 +11,11 @@
 
     <artifactId>java-demo</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <version>26.0-jre</version>
+            <artifactId>guava</artifactId>
+        </dependency>
+    </dependencies>
 </project>
