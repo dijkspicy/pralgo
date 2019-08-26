@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * auto generated
+ * 超时
  *
  * @since 2019-08-24
  */
