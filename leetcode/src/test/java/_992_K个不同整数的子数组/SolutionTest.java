@@ -59,11 +59,9 @@ public class SolutionTest {
     }
 
     private int[] getInputFromFile(final String fileName) throws IOException {
-        Path file = Paths.get("src/test/java/_992_K个不同整数的子数组/" + fileName);
-        byte[] content = Files.readAllBytes(file);
-        String contentString = new String(content);
-        contentString = contentString.trim().replaceAll("[\r\n]", "");
-        String[] split = contentString.split(",");
+        String content = new String(Files.readAllBytes(Paths.get("src/test/java/_992_K个不同整数的子数组/" + fileName)));
+        content = content.trim().replaceAll("[\r\n]", "");
+        String[] split = content.split(",");
         List<Integer> collect = Arrays.stream(split)
             .map(Integer::parseInt)
             .collect(Collectors.toList());
