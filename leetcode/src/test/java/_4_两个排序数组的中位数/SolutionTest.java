@@ -1,6 +1,5 @@
-package _4两个排序数组的中位数;
+package _4_两个排序数组的中位数;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

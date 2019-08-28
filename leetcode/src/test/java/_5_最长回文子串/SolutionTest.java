@@ -1,8 +1,6 @@
-package _5最长回文子串;
+package _5_最长回文子串;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * pralgo
