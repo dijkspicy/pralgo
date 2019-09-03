@@ -26,15 +26,18 @@ public class Solution {
         final int N = grid.length;
         final int M = grid[0].length;
         final List<Coordinate> lands = new ArrayList<>();
+
+        // 遍历找到所有的陆地
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 int value = grid[i][j];
                 if (value == LAND) {
-                    Coordinate e = new Coordinate(grid, i, j);
-                    lands.add(e);
+                    lands.add(new Coordinate(grid, i, j));
                 }
             }
         }
+
+        // 如果全部是陆地或者海洋，直接退出
         if (lands.size() == N * M || lands.size() == 0) {
             return -1;
         }
@@ -42,6 +45,8 @@ public class Solution {
     }
 
     /**
+     * 填海造陆，从陆地开始，每一层往海上延伸，能够延伸到最远的表示离陆地最远
+     * <p>
      * BFS，从陆地往海洋延伸，测量每一个海洋区域，量过的做一个标记
      * 量完一圈进行一次递归，直到所有的都测量完成
      */

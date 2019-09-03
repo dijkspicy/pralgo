@@ -23,4 +23,5 @@ public class Solution {
     private int[] createResult(int small, int big) {
         return new int[] {small, big};
     }
+
 }

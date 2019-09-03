@@ -21,9 +21,9 @@ package _2_两数相加;
  */
 public class Solution {
     public static void main(String[] args) {
-        ListNode l1 = new ListNode(0);
+        Solution.ListNode l1 = new Solution.ListNode(0);
 
-        ListNode l2 = new ListNode(0);
+        Solution.ListNode l2 = new Solution.ListNode(0);
 //        l2.next = new ListNode(9);
 //        l2.next.next = new ListNode(9);
 //        l2.next.next.next = new ListNode(9);
@@ -65,5 +65,20 @@ public class Solution {
             node.next = new ListNode(ten);
         }
         return result.next;
+    }
+
+    /**
+     * _2两数相加
+     *
+     * @author t00321127
+     * @date 2018/4/3
+     */
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
     }
 }
