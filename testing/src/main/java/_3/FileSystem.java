@@ -5,12 +5,24 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * a self defined file system
+ */
 public class FileSystem {
-    private MyDir root = new MyDir("");
+    private final MyDir root = new MyDir("");
 
+    /**
+     * create a new file system
+     */
     public FileSystem() {
     }
 
+    /**
+     * list all files in path
+     *
+     * @param path path
+     * @return all files in path
+     */
     public List<String> ls(String path) {
         if (path.equals("/")) {
             return this.root.ls();
@@ -31,6 +43,11 @@ public class FileSystem {
         return myFile.ls();
     }
 
+    /**
+     * make new directories with path
+     *
+     * @param path path
+     */
     public void mkdir(String path) {
         MyDir parent = this.root;
         for (String name : splitPaths(path)) {
@@ -38,6 +55,12 @@ public class FileSystem {
         }
     }
 
+    /**
+     * add content to the file
+     *
+     * @param filePath the file
+     * @param content content to append
+     */
     public void addContentToFile(String filePath, String content) {
         String[] strings = splitPaths(filePath);
         int length = strings.length;
@@ -51,6 +74,12 @@ public class FileSystem {
         parent.vim(last, content);
     }
 
+    /**
+     * read content from the file
+     *
+     * @param filePath the file
+     * @return content of the file
+     */
     public String readContentFromFile(String filePath) {
         String[] strings = splitPaths(filePath);
         int length = strings.length;
@@ -78,26 +107,61 @@ public class FileSystem {
     private static class MyFile {
         final StringBuilder contentAppender = new StringBuilder();
         final String name;
-        MyDir parentDir;
+        final MyDir parentDir;
 
-        MyFile(String name) {
+        /**
+         * create a file instance named name
+         *
+         * @param name name
+         * @param parent parent dir
+         */
+        MyFile(String name, MyDir parent) {
             this.name = name;
+            this.parentDir = parent;
         }
 
+        /**
+         * current name
+         *
+         * @return name
+         */
         public String getName() {
             return name;
         }
 
+        /**
+         * list the files
+         *
+         * @return files
+         */
         public List<String> ls() {
             return Collections.singletonList(this.getName());
         }
     }
 
+    /**
+     * dir
+     */
     private static class MyDir extends MyFile {
         List<MyFile> files = new LinkedList<>();
 
+        /**
+         * create a dir named name
+         *
+         * @param name dir name
+         */
         MyDir(String name) {
-            super(name);
+            super(name, null);
+        }
+
+        /**
+         * create a dir named name with parent dir
+         *
+         * @param name name
+         * @param parent parent
+         */
+        MyDir(String name, MyDir parent) {
+            super(name, parent);
         }
 
         @Override
@@ -117,6 +181,12 @@ public class FileSystem {
             return lsList;
         }
 
+        /**
+         * get sub dir named name
+         *
+         * @param name name
+         * @return sub dir or null
+         */
         MyDir getSubDir(String name) {
             for (MyFile file : this.files) {
                 if (file instanceof MyDir && file.name.equals(name)) {
@@ -126,12 +196,24 @@ public class FileSystem {
             return null;
         }
 
+        /**
+         * make new sub directory named name
+         *
+         * @param name dir name
+         * @return sub dir
+         */
         MyDir mkdir(String name) {
-            MyDir dir = new MyDir(name);
+            MyDir dir = new MyDir(name, this);
             this.files.add(dir);
             return dir;
         }
 
+        /**
+         * get sub file or null if not exists
+         *
+         * @param name name
+         * @return sub file
+         */
         MyFile get(String name) {
             for (MyFile file : this.files) {
                 if (file.name.equals(name)) {
@@ -144,7 +226,7 @@ public class FileSystem {
         void vim(String name, String content) {
             MyFile myFile = this.get(name);
             if (myFile == null) {
-                MyFile file = new MyFile(name);
+                MyFile file = new MyFile(name, this);
                 file.contentAppender.append(content);
                 this.files.add(file);
             } else if (!(myFile instanceof MyDir)) {

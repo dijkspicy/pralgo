@@ -30,21 +30,17 @@ public class Solution {
         List<String> list = new ArrayList<>(Arrays.asList(words));
         list.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
 
-        List<Integer> indexes = new LinkedList<>();
         List<String> appended = new LinkedList<>();
         StringBuilder stringBuilder = new StringBuilder();
-        int leftIndex = 0;
         for (String item : list) {
             boolean found = false;
             for (String s : appended) {
                 if (s.endsWith(item)) {
-                    indexes.add(s.indexOf(item) + leftIndex);
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                indexes.add(stringBuilder.length());
                 stringBuilder.append(item).append("#");
                 appended.add(item);
             }
