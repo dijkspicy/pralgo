@@ -1,9 +1,20 @@
 package _2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * solution of second question
+ */
 public class Solution {
+    /**
+     * get min length of more complete string
+     *
+     * @param words words
+     * @return the min length
+     */
     public int getMinLengthOfCompleteString(String[] words) {
         if (words.length == 0) {
             return 0;
@@ -16,21 +27,28 @@ public class Solution {
     }
 
     private int getMinLengthOfMoreThanOneWord(String[] words) {
+        List<String> list = new ArrayList<>(Arrays.asList(words));
+        list.sort((o1, o2) -> Integer.compare(o2.length(), o1.length()));
+
         List<Integer> indexes = new LinkedList<>();
-        indexes.add(0);
+        List<String> appended = new LinkedList<>();
+        StringBuilder stringBuilder = new StringBuilder();
         int leftIndex = 0;
-        String leftWord = words[0];
-        StringBuilder sb = new StringBuilder();
-        sb.append(leftWord).append("#");
-        for (int i = 1; i < words.length; i++) {
-            String word = words[i];
-            if (leftWord.endsWith(word)) {
-                indexes.add(leftWord.indexOf(word) + leftIndex);
-            } else {
-                indexes.add(sb.length());
-                sb.append(word).append("#");
+        for (String item : list) {
+            boolean found = false;
+            for (String s : appended) {
+                if (s.endsWith(item)) {
+                    indexes.add(s.indexOf(item) + leftIndex);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                indexes.add(stringBuilder.length());
+                stringBuilder.append(item).append("#");
+                appended.add(item);
             }
         }
-        return sb.length();
+        return stringBuilder.length();
     }
 }
